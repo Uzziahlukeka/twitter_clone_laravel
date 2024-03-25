@@ -1,0 +1,4 @@
+php artisan serve : serveur
+php artisan make:controller  controller_name_Controller == creer un controller
+php artisan make:migration table_name == creer une table dans la base de donnees
+
