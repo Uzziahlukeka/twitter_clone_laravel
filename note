@@ -1,4 +1,20 @@
 php artisan serve : serveur
 php artisan make:controller  controller_name_Controller == creer un controller
 php artisan make:migration table_name == creer une table dans la base de donnees
+php artisan migrate : update ou creer une database dans mysql (faire la connexion)
+php artisan make:model model_name : creer un model pour la modif des bases de donnees
 
+
+ $idea= new Idea([
+            'content'=>request()->get('idea',null),
+            'likes'=>1
+        ]);
+        //to be able to connect the db and execute the query
+         $idea->save();
+
+         //or
+         /*
+         $idea= Idea::create([
+            'content'=>request()->get('idea',null),
+            'likes'=>1
+        ]); for submitting 
