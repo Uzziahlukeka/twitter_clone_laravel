@@ -32,4 +32,22 @@ class IdeaController extends Controller
             'idea'=>$id
         ]);
     }
+    public function edit(Idea $id){
+        $editing= true;
+        return view('ideas.show',[
+            'idea'=>$id,
+            'editing' => $editing
+        ]);
+    }
+    public function update(Idea $id){
+
+        request()->validate([
+            'content'=> 'required|min:5|max:256'
+        ]);
+
+        $id->content=request()->get('content','');
+        $id->save();
+
+        return redirect()->route('idea.show',$id->id)->with('success','idea updated successfully !');
+    }
 }

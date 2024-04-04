@@ -15,15 +15,35 @@
                 @method('delete')
                 <button class="btn btn-danger btn-sm"> X </button>
             </form>
-            <a href="{{ route('idea.show',$idea->id )}}"> view </a>
+            <a class="mx-3" href="{{ route('idea.show',$idea->id )}}"> view </a>
+            <a href="{{ route('idea.edit',$idea->id )}}"> edit </a>
         </div>
         </div>
     </div>
+        <div class="card-body">
+        @if ($editing ?? false)
 
-    <div class="card-body">
+            <form action="{{route('idea.update',$idea->id)}}" method="POST">
+                @csrf
+                @method('put')
+                <div class="mb-3">
+                    <textarea name="content" class="form-control" id="content" rows="3">{{ $idea->content }}</textarea>
+                @error('idea')
+                    <span class="fs-6 text-danger"> {{$message}} </span>
+                @enderror
+                </div>
+                <div class="">
+                    <button type="submit" class="btn btn-dark"> Share </button>
+                </div>
+            </form>
+
+        @else
         <p class="fs-6 fw-light text-muted">
             {{$idea->content}}
         </p>
+
+        @endif
+
         <div class="d-flex justify-content-between">
             <div>
                 <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
