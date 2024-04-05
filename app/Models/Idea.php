@@ -12,6 +12,7 @@ class Idea extends Model
 
     //this allows us to put value in a dico
     protected $fillable = [
+        'user_id',
         'content',
         'likes'
     ];
@@ -21,4 +22,9 @@ class Idea extends Model
     public function comments(){
         return $this->hasMany(Comment::class,'idea_id','id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 }

@@ -12,6 +12,7 @@ class CommentController extends Controller
     public function store(Idea $id){
         $comment = new Comment();
         $comment->idea_id=$id->id;
+        $comment->user_id=auth()->id();
         $comment->content=request()->get('content');
         $comment->save();
 

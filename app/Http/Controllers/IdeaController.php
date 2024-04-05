@@ -10,18 +10,21 @@ class IdeaController extends Controller
     //
     public function store(){
 
-        request()->validate([
-            'idea'=> 'required|min:5|max:256'
+        $validated= request()->validate([
+            'content'=> 'required|min:5|max:256'
         ]);
 
-         $idea= Idea::create([
-            'content'=>request()->get('idea',null),
-
-        ]);
+        $validated['user_id']= auth()->id();
+        Idea::create($validated);
 
          return redirect()->route('dashbord')->with('success','idea created successfully');
     }
     public function destroy(Idea $id){
+
+        if(auth()->id() !== $id->user_id){
+            abort(404);
+        }
+
         $id->delete();
 
         return redirect()->route('dashbord')->with('success','idea deleted successfully');
@@ -33,6 +36,11 @@ class IdeaController extends Controller
         ]);
     }
     public function edit(Idea $id){
+
+        if(auth()->id() !== $id->user_id){
+            abort(404);
+        }
+
         $editing= true;
         return view('ideas.show',[
             'idea'=>$id,
@@ -40,6 +48,10 @@ class IdeaController extends Controller
         ]);
     }
     public function update(Idea $id){
+
+        if(auth()->id() !== $id->user_id){
+            abort(404);
+        }
 
         request()->validate([
             'content'=> 'required|min:5|max:256'
