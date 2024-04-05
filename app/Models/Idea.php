@@ -10,9 +10,15 @@ class Idea extends Model
     use HasFactory;
 
 
-    //this allows us to put value in a dico 
+    //this allows us to put value in a dico
     protected $fillable = [
         'content',
         'likes'
     ];
+
+    //relationships in laravel
+
+    public function comments(){
+        return $this->hasMany(Comment::class,'idea_id','id');
+    }
 }
